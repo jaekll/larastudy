@@ -18,10 +18,15 @@ get('/','BlogController@index');
 get('blog', 'BlogController@index');
 get('blog/{slug}', 'BlogController@showPost');
 
+get('contact','ContactController@show');
+post('contact','ContactController@sendInfo');
+
 // Admin area
 get('admin', function () {
     return redirect('/admin/post');
 });
+
+get('rss', 'BlogController@rss');
 
 $router->group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
     resource('admin/post', 'PostController');

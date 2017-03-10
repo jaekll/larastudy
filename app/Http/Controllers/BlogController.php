@@ -6,6 +6,7 @@ use App\Jobs\BlogIndexData;
 use App\Http\Requests;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Services\RssFeed;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -28,5 +29,11 @@ class BlogController extends Controller
         }
 
         return view($post->layout, compact('post', 'tag'));
+    }
+
+    public function rss(RssFeed $feed)
+    {
+        $rss = $feed->getRSS();
+        return response($rss)->header('Content-type','application/rss+xml');
     }
 }
